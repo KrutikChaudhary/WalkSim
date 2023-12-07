@@ -58,7 +58,7 @@ public class WalkSim {
             assert T1.rows() == 4 : "Walker MarkovChain should have 4 states";
             System.out.println(T1.prettyString());
             MarkovChain mc = new MarkovChain(T1, cardinals);
-            RandomWalker walker = new RandomWalker(mc);
+            Walker walker = new SpiralWalker(mc);
 
             ArrayList<Coordinate> theWalk = walker.walk(nSteps);
             walker.saveWalkToFile(outputFile);

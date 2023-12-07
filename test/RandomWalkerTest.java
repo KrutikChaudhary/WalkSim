@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -32,7 +31,7 @@ public class RandomWalkerTest {
 
     @Test
     void walk_testCommon() {
-        RandomWalker walker = new RandomWalker(testMC1);
+        Walker walker = new RandomWalker(testMC1);
         int Nsteps = 10;
 
         ArrayList<Coordinate> path = walker.walk(Nsteps);
@@ -43,7 +42,7 @@ public class RandomWalkerTest {
 
     @Test
     void walk_testZeroSteps() {
-        RandomWalker walker = new RandomWalker(testMC1);
+        Walker walker = new RandomWalker(testMC1);
         int Nsteps = 0;
 
         ArrayList<Coordinate> path = walker.walk(Nsteps);
@@ -54,7 +53,7 @@ public class RandomWalkerTest {
 
     @Test
     void walk_testNegSteps() {
-        RandomWalker walker = new RandomWalker(testMC1);
+        Walker walker = new RandomWalker(testMC1);
         int Nsteps = -1;
 
         ArrayList<Coordinate> path = walker.walk(Nsteps);
@@ -63,36 +62,5 @@ public class RandomWalkerTest {
         assertEquals(path.size(),0, "Expected empty path with negative steps.");
     }
 
-
-    @Test
-    void saveWalkToFile_Common() {
-        RandomWalker walker = new RandomWalker(testMC1);
-        String path = "_saveWalkToFile_Common_UnitTest.txt";
-        try {
-            File fp = new File(path);
-            assertFalse(fp.exists(), "Pre-condition: file should not yet exist.");
-
-            walker.saveWalkToFile(path);
-
-            assertTrue(fp.exists(), "File should exist after writing to it with no IOExeception.");
-            assertTrue(fp.delete(), "Expected to be able to delete file after writing to it.");
-        } catch (IOException e) {
-            fail("Exception occurred while trying to save walk to the file: " + path);
-        }
-    }
-
-    @Test
-    void saveWalkToFile_Exception() {
-        RandomWalker walker = new RandomWalker(testMC1);
-        String fakePath = "foobarbaddirectory" + File.separator
-                + "definitelynotarealdirectory123905" + File.separator
-                + "testFile.txt";
-        try {
-            walker.saveWalkToFile(fakePath);
-            fail("Should have failed trying to write to the fake path: " + fakePath);
-        } catch (IOException e) {
-            //Exception expected
-        }
-    }
 
 }

@@ -1,9 +1,9 @@
 Refactoring 1: Make a abstract class Walker.java containing abstract method called walk()
-so it can be used by other walker subclasses (Example RandomWalker.java, SpiralWalker.java, BreadCrumbWalker.java)
+so it can be used by other walker subclasses (Example Walker.java, SpiralWalker.java, BreadCrumbWalker.java)
 Walker.java class will serve as a common base class, encapsulating shared functionalities that can be inherited
 by its subclasses.
 
-Refactoring 2: Extend RandomWalker.java from Walker.java and override walk() method
+Refactoring 2: Extend Walker.java from Walker.java and override walk() method
 
 Refactoring 3: Extend SpiralWalker.java from Walker.java and override walk() method
 

@@ -14,9 +14,9 @@ public abstract class Walker {
     public static final int START_Y = 0;
     public static final int STEP_SIZE = 1; //each step along the lattice moves this many units
 
-    private MarkovChain mc;
-    private Coordinate curPos;
-    private ArrayList<Coordinate> path;
+    protected MarkovChain mc;
+    protected Coordinate curPos;
+    protected ArrayList<Coordinate> path;
 
     /**
      * Construct a RandomWalker from a Markov chain.
@@ -48,7 +48,13 @@ public abstract class Walker {
         PrintWriter writer = new PrintWriter(fname);
 
         for (Coordinate coord : path) {
-            writer.println(String.format("(%d, %d)", coord.x, coord.y));
+            if(fname.substring(fname.length()-4,fname.length()).equals(".txt")){
+                writer.println(String.format("(%d, %d)", coord.x, coord.y));
+            }
+            else if(fname.substring(fname.length()-4,fname.length()).equals(".txt")){
+                writer.println(String.format(coord.x + " " +  coord.y));
+            }
+
         }
 
         writer.close();
@@ -61,7 +67,7 @@ public abstract class Walker {
      * @return a coordinate encoding the difference between the Walker's destination position
      *         and its starting position for this step.
      */
-    private Coordinate getStepDirection() {
+    public Coordinate getStepDirection() {
         Coordinate step = new Coordinate(0,0);
         String state =  mc.getStateString();
         if (state.equals("N")) {

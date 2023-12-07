@@ -52,7 +52,7 @@ public abstract class Walker {
                 writer.println(String.format("(%d, %d)", coord.x, coord.y));
             }
             else if(fname.substring(fname.length()-4,fname.length()).equals(".dat")){
-                writer.println(String.format(coord.x + " " +  coord.y));
+                writer.print(String.format(coord.x + " " +  coord.y + " "));
             }
 
         }

@@ -1,6 +1,8 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 /**
  * A main class for orchestrating a random walk.
@@ -19,9 +21,41 @@ public class WalkSim {
     public static void main(String[] args) {
 
         String exampleFile = "test_cases/example1.txt";
-        String outputFile = "output1.txt";
-
+        Scanner kb = new Scanner(System.in);
         int nSteps = 200;
+        System.out.println("Enter number of steps: ");
+        while(true){
+            try{
+                nSteps= kb.nextInt();
+                break;
+            }
+            catch (InputMismatchException e){
+                System.out.println("Enter valid integer: ");
+                kb.nextLine();
+            }
+
+        }
+        int walk = -1;
+        System.out.println("Enter walk type: ");
+        while(true){
+            try{
+                walk= kb.nextInt();
+                if(walk>2||walk<0){
+                    System.out.println("Enter value from 0,1,2");
+                    continue;
+                }
+                break;
+            }
+            catch (InputMismatchException e){
+                System.out.println("Enter valid integer: ");
+                kb.nextLine();
+            }
+
+        }
+        System.out.println("Enter file name to store output");
+        String outputFile= kb.next();
+
+
         int walkerType = 0;
 
         int stepDuration = 30; //controls the speed of the animation
@@ -54,11 +88,26 @@ public class WalkSim {
         String[] cardinals = {"N", "E", "S", "W"};
         FloatMatrix T1 = null;
         try {
+
             T1 = FloatMatrix.fromFile(exampleFile);
             assert T1.rows() == 4 : "Walker MarkovChain should have 4 states";
-            System.out.println(T1.prettyString());
+
             MarkovChain mc = new MarkovChain(T1, cardinals);
-            Walker walker = new SpiralWalker(mc);
+            Walker walker;
+
+            if(walk == 1){
+                 walker = new SpiralWalker(mc);
+            }
+            else if (walk == 0){
+                walker = new RandomWalker(mc);
+                System.out.println(T1.prettyString());
+            }
+            else{
+                walker = new BreadCrumbWalker(mc);
+                System.out.println(T1.prettyString());
+            }
+
+
 
             ArrayList<Coordinate> theWalk = walker.walk(nSteps);
             walker.saveWalkToFile(outputFile);

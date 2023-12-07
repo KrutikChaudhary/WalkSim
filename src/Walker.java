@@ -51,7 +51,7 @@ public abstract class Walker {
             if(fname.substring(fname.length()-4,fname.length()).equals(".txt")){
                 writer.println(String.format("(%d, %d)", coord.x, coord.y));
             }
-            else if(fname.substring(fname.length()-4,fname.length()).equals(".txt")){
+            else if(fname.substring(fname.length()-4,fname.length()).equals(".dat")){
                 writer.println(String.format(coord.x + " " +  coord.y));
             }
 
